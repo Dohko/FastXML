@@ -12,6 +12,7 @@
 		A46A1B0A2090709D000F54DB /* SwiftXML.h in Headers */ = {isa = PBXBuildFile; fileRef = A46A1AFC2090709D000F54DB /* SwiftXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A46A1B16209070F2000F54DB /* SwiftXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1B15209070F2000F54DB /* SwiftXML.swift */; };
 		A46A1B1B209206EA000F54DB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A46A1B1A209206EA000F54DB /* README.md */; };
+		A46A1B1D20920C2B000F54DB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A46A1B1C20920C2B000F54DB /* LICENSE */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		A46A1B092090709D000F54DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A46A1B15209070F2000F54DB /* SwiftXML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftXML.swift; sourceTree = "<group>"; };
 		A46A1B1A209206EA000F54DB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		A46A1B1C20920C2B000F54DB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -57,6 +59,7 @@
 		A46A1AEF2090709D000F54DB = {
 			isa = PBXGroup;
 			children = (
+				A46A1B1C20920C2B000F54DB /* LICENSE */,
 				A46A1B1A209206EA000F54DB /* README.md */,
 				A46A1B13209070BA000F54DB /* Source */,
 				A46A1B062090709D000F54DB /* Tests */,
@@ -192,6 +195,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A46A1B1D20920C2B000F54DB /* LICENSE in Resources */,
 				A46A1B1B209206EA000F54DB /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -409,7 +413,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SwiftXMLTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -427,7 +431,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = SwiftXMLTests/Info.plist;
+				INFOPLIST_FILE = Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
