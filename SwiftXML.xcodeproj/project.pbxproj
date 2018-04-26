@@ -10,6 +10,8 @@
 		A46A1B032090709D000F54DB /* SwiftXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A46A1AF92090709D000F54DB /* SwiftXML.framework */; };
 		A46A1B082090709D000F54DB /* SwiftXMLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1B072090709D000F54DB /* SwiftXMLTests.swift */; };
 		A46A1B0A2090709D000F54DB /* SwiftXML.h in Headers */ = {isa = PBXBuildFile; fileRef = A46A1AFC2090709D000F54DB /* SwiftXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A46A1B16209070F2000F54DB /* SwiftXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1B15209070F2000F54DB /* SwiftXML.swift */; };
+		A46A1B1B209206EA000F54DB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A46A1B1A209206EA000F54DB /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,8 @@
 		A46A1B022090709D000F54DB /* SwiftXMLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftXMLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A46A1B072090709D000F54DB /* SwiftXMLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftXMLTests.swift; sourceTree = "<group>"; };
 		A46A1B092090709D000F54DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A46A1B15209070F2000F54DB /* SwiftXML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftXML.swift; sourceTree = "<group>"; };
+		A46A1B1A209206EA000F54DB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,8 +57,10 @@
 		A46A1AEF2090709D000F54DB = {
 			isa = PBXGroup;
 			children = (
-				A46A1AFB2090709D000F54DB /* SwiftXML */,
-				A46A1B062090709D000F54DB /* SwiftXMLTests */,
+				A46A1B1A209206EA000F54DB /* README.md */,
+				A46A1B13209070BA000F54DB /* Source */,
+				A46A1B062090709D000F54DB /* Tests */,
+				A46A1B14209070C2000F54DB /* Resource */,
 				A46A1AFA2090709D000F54DB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -68,22 +74,30 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		A46A1AFB2090709D000F54DB /* SwiftXML */ = {
-			isa = PBXGroup;
-			children = (
-				A46A1AFC2090709D000F54DB /* SwiftXML.h */,
-				A46A1AFD2090709D000F54DB /* Info.plist */,
-			);
-			path = SwiftXML;
-			sourceTree = "<group>";
-		};
-		A46A1B062090709D000F54DB /* SwiftXMLTests */ = {
+		A46A1B062090709D000F54DB /* Tests */ = {
 			isa = PBXGroup;
 			children = (
 				A46A1B072090709D000F54DB /* SwiftXMLTests.swift */,
 				A46A1B092090709D000F54DB /* Info.plist */,
 			);
-			path = SwiftXMLTests;
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		A46A1B13209070BA000F54DB /* Source */ = {
+			isa = PBXGroup;
+			children = (
+				A46A1B15209070F2000F54DB /* SwiftXML.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		A46A1B14209070C2000F54DB /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				A46A1AFC2090709D000F54DB /* SwiftXML.h */,
+				A46A1AFD2090709D000F54DB /* Info.plist */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +162,7 @@
 				TargetAttributes = {
 					A46A1AF82090709D000F54DB = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0930;
 					};
 					A46A1B012090709D000F54DB = {
 						CreatedOnToolsVersion = 9.3;
@@ -177,6 +192,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A46A1B1B209206EA000F54DB /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A46A1B16209070F2000F54DB /* SwiftXML.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,13 +356,14 @@
 		A46A1B0E2090709D000F54DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftXML/Info.plist;
+				INFOPLIST_FILE = Resource/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -355,6 +373,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.morganfitussi.SwiftXML;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -363,13 +382,14 @@
 		A46A1B0F2090709D000F54DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				INFOPLIST_FILE = SwiftXML/Info.plist;
+				INFOPLIST_FILE = Resource/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -387,6 +407,7 @@
 		A46A1B112090709D000F54DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SwiftXMLTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -404,6 +425,7 @@
 		A46A1B122090709D000F54DB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SwiftXMLTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
