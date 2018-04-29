@@ -179,4 +179,21 @@ class SwiftXMLTests: XCTestCase {
         XCTAssertEqual(tagValue, "данные")
         XCTAssertEqual(propertyValue, "ռուսերեն")
     }
+    
+    
+    func testPerformance() {
+        self.measure {
+            var xmlString = ""
+            for index in 1...100000 {
+                xmlString += "<tag\(index) prop1=\"foo\" prop2=\"bar\">"
+            }
+            xmlString += "value"
+            for index in 1...100000 {
+                xmlString += "</tag\(index)>"
+            }
+            parse(xml: xmlString)
+        }
+    }
+
+    
 }
