@@ -1,0 +1,18 @@
+language: objective-c
+osx_image: xcode8.0
+xcode_project: SwiftXML.xcodeproj
+xcode_sdk: iphonesimulator9.3
+branches:
+  only:
+    - master
+env:
+  global:
+  - FRAMEWORK_NAME=SwiftXML
+before_install:
+  - brew update
+  - brew outdated carthage || brew upgrade carthage
+before_script:
+  - carthage bootstrap
+before_deploy:
+  - carthage build --no-skip-current
+  - carthage archive $FRAMEWORK_NAME
