@@ -31,15 +31,14 @@ class SwiftXML: NSObject {
         case invalidXML
     }
     
-    typealias Handler = ([String: Any]?, Error?) -> Void
+    typealias Handler = ([String : Any]?, Error?) -> Void
     private var handler: Handler?
 
     private let data: Data
 
-    private typealias Element = (key: String, value: Any)
+    private typealias Element = (key: String, value: Any?, attributes: [String : String])
     private typealias Node = (element: Element, children: [Element]?)
 
-    private var nodes: [String: Any] = [:]
     private var nodeValue: String?
 
     private var root: [Node] = []
@@ -72,6 +71,7 @@ class SwiftXML: NSObject {
     
 }
 
+// MARK: XMLParserDelegate
 extension SwiftXML: XMLParserDelegate {
     
     /// Recursively reduce the array of Element to Dictionary
@@ -79,18 +79,46 @@ extension SwiftXML: XMLParserDelegate {
     /// - parameter elements: A array of Element
     ///
     private func reduce(_ elements: [Element]) -> [String: Any] {
-        return elements.reduce(into: [String: Any]()) {
+        return elements.reduce(into: [String : Any]()) {
             if let elements = $1.value as? [Element] {
-                $0[$1.key] = reduce(elements)
+                if $1.attributes.count > 0 {
+                    let attributes = Dictionary(uniqueKeysWithValues: $1.attributes.map { ("$\($0.key)", $0.value) })
+                    $0[$1.key] = attributes.reduce(reduce(elements)) { (result, pair) in
+                        var result = result // without this line we could not modify the dictionary
+                        result[pair.0] = pair.1
+                        return result
+                    }
+                }
+                else {
+                    if let existingElement = $0[$1.key] {
+                        if var existingElement = existingElement as? [[String : Any]] {
+                            existingElement.append(reduce(elements))
+                            $0[$1.key] = existingElement
+                        }
+                        else {
+                            var arrayOfElements: [[String : Any]] = []
+                            arrayOfElements.append(existingElement as! [String : Any])
+                            arrayOfElements.append(reduce(elements))
+                            $0[$1.key] = arrayOfElements
+                        }
+                    }
+                    else {
+                        $0[$1.key] = reduce(elements)
+                    }
+                }
             }
             else {
-                $0[$1.key] = $1.value
+                if $1.attributes.count > 0 {
+                    var attributes = Dictionary(uniqueKeysWithValues: $1.attributes.map { ("$\($0.key)", $0.value) })
+                    attributes["text"] = $1.value as? String
+                    $0[$1.key] = attributes
+                }
+                else {
+                    $0[$1.key] = $1.value
+                }
             }
         }
     }
-    
-    
-    // MARK: XMLParserDelegate
     
     func parserDidEndDocument(_ parser: XMLParser) {
         // documents with a stack of tags
@@ -100,7 +128,7 @@ extension SwiftXML: XMLParserDelegate {
         else {
             // simple XML data with uniq tag
             if let rootNode = root.first {
-                handler?([rootNode.element.key: rootNode.element.value], nil)
+                handler?([rootNode.element.key: rootNode.element.value as Any], nil)
             }
             // Invalid XML - plain text
             else {
@@ -111,7 +139,7 @@ extension SwiftXML: XMLParserDelegate {
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         // Appends a new element to the stack
-        root.append((element: (key: elementName, value: attributeDict), children: []))
+        root.append((element: (key: elementName, value: nil, attributes: attributeDict), children: []))
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
@@ -123,15 +151,7 @@ extension SwiftXML: XMLParserDelegate {
             node.element.value = node.children
         }
         else {
-            // Does element contains properties?
-            if var element = node.element.value as? [String: Any], element.count > 0 {
-                // Creates a new property for text value
-                element["$text"] = nodeValue
-                node.element.value = element
-            }
-            else {
-                node.element.value = nodeValue
-            }
+            node.element.value = nodeValue
         }
 
         // Removes the last element on the stack
