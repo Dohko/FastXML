@@ -54,7 +54,7 @@ class SwiftXMLTests: XCTestCase {
         }
     
         wait(for: [expectation], timeout: 2.0)
-}
+    }
     
     func testParseInvalidXML() {
         // Given
@@ -130,7 +130,7 @@ class SwiftXMLTests: XCTestCase {
         XCTAssertEqual(tagValue, value)
         XCTAssertEqual(propertyValue, "my_attr")
     }
-
+    
     func testParseXMLWithStackOfTags() {
         // Given
         let xml = """
@@ -142,7 +142,7 @@ class SwiftXMLTests: XCTestCase {
             <ent3>Hello ent3</ent3>
         </ent1>
         """
-
+        
         // When
         parse(xml: xml)
         
@@ -159,6 +159,68 @@ class SwiftXMLTests: XCTestCase {
         let ent3 = ent1!["ent3"] as? String
         XCTAssertEqual(ent3, "Hello ent3")
     }
+
+    func testParseXMLWithStackOfTagsAndAttributes() {
+        // Given
+        let xml = """
+        <ent1 prop="prop1">
+            <ent2 prop="prop2">
+                <ent21 prop="prop21">Hello ent21</ent21>
+                <ent22 prop="prop22">Hello ent22</ent22>
+            </ent2>
+            <ent3 prop="prop3">Hello ent3</ent3>
+        </ent1>
+        """
+
+        // When
+        parse(xml: xml)
+        
+        // Then
+        XCTAssertNotNil(dataParsed)
+        let ent1 = dataParsed!["ent1"] as? Node
+        XCTAssertNotNil(ent1)
+        XCTAssertEqual(ent1!["prop"] as? String, "prop1")
+        let ent2 = ent1!["ent2"] as? Node
+        XCTAssertNotNil(ent2)
+        XCTAssertEqual(ent2!["prop"] as? String, "prop2")
+        let ent21 = ent2!["ent21"] as? Node
+        XCTAssertEqual(ent21!["prop"] as? String, "prop21")
+        XCTAssertEqual(ent21!["$text"] as? String, "Hello ent21")
+        let ent22 = ent2!["ent22"] as? Node
+        XCTAssertEqual(ent22!["prop"] as? String, "prop22")
+        XCTAssertEqual(ent22!["$text"] as? String, "Hello ent22")
+        let ent3 = ent1!["ent3"] as? Node
+        XCTAssertEqual(ent3!["prop"] as? String, "prop3")
+        XCTAssertEqual(ent3!["$text"] as? String, "Hello ent3")
+    }
+    
+    func testParseArrayOfTags() {
+        // Given
+        let xml = """
+        <ent1>
+            <ent2>
+                <ent21>Hello ent21 first</ent21>
+                <ent21>Hello ent21 second</ent21>
+            </ent2>
+            <ent2>
+                <ent22>Hello ent22 first</ent22>
+                <ent22>Hello ent22 second</ent22>
+            </ent2>
+        </ent1>
+        """
+        
+        // When
+        parse(xml: xml)
+        
+        // Then
+        XCTAssertNotNil(dataParsed)
+        let ent1 = dataParsed!["ent1"] as? Node
+        XCTAssertNotNil(ent1)
+        let ent2 = ent1!["ent2"] as? [Node]
+        XCTAssertNotNil(ent2)
+        XCTAssertEqual(ent2?.count, 2)
+    }
+
 
     func testParsingInternationalXML() {
         // Given
@@ -181,17 +243,29 @@ class SwiftXMLTests: XCTestCase {
     }
     
     
+//    func testPerformance() {
+//        self.measure {
+//            var xmlString = ""
+//            for index in 1...40000 {
+//                xmlString += "<tag\(index) prop1=\"foo\" prop2=\"bar\">"
+//            }
+//            xmlString += "value"
+//            for index in 1...40000 {
+//                xmlString += "</tag\(index)>"
+//            }
+//            parse(xml: xmlString)
+//        }
+//    }
+
     func testPerformance() {
         self.measure {
-            var xmlString = ""
-            for index in 1...100000 {
-                xmlString += "<tag\(index) prop1=\"foo\" prop2=\"bar\">"
-            }
-            xmlString += "value"
-            for index in 1...100000 {
-                xmlString += "</tag\(index)>"
-            }
-            parse(xml: xmlString)
+            let testBundle = Bundle(for: type(of: self))
+            let filePath = testBundle.path(forResource: "test", ofType: "xml")
+            let url = URL(string: "file://" + filePath!)!
+            let xml = try! String(contentsOf: url)
+
+            print("file://" + filePath!)
+            parse(xml: xml)
         }
     }
 

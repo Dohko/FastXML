@@ -35,15 +35,10 @@ class SwiftXML: NSObject {
     private var handler: Handler?
 
     private let data: Data
-
-    private typealias Element = (key: String, value: Any)
-    private typealias Node = (element: Element, children: [Element]?)
-
-    private var nodes: [String: Any] = [:]
     private var nodeValue: String?
-
-    private var root: [Node] = []
+    private var currentNode: [String: Any] = [:]
     
+
     // MARK: Lifecycle
     
     /// Creates an instance with the specified `xmldata`
@@ -72,75 +67,66 @@ class SwiftXML: NSObject {
     
 }
 
+
+// MARK: XMLParserDelegate
 extension SwiftXML: XMLParserDelegate {
     
-    /// Recursively reduce the array of Element to Dictionary
-    ///
-    /// - parameter elements: A array of Element
-    ///
-    private func reduce(_ elements: [Element]) -> [String: Any] {
-        return elements.reduce(into: [String: Any]()) {
-            if let elements = $1.value as? [Element] {
-                $0[$1.key] = reduce(elements)
-            }
-            else {
-                $0[$1.key] = $1.value
-            }
-        }
-    }
-    
-    
-    // MARK: XMLParserDelegate
-    
     func parserDidEndDocument(_ parser: XMLParser) {
-        // documents with a stack of tags
-        if let rootNode = root.first, let elements = rootNode.children {
-            handler?(reduce(elements), nil)
-        }
-        else {
-            // simple XML data with uniq tag
-            if let rootNode = root.first {
-                handler?([rootNode.element.key: rootNode.element.value], nil)
-            }
-            // Invalid XML - plain text
-            else {
-                handler?([:], nil)
-            }
-        }
+        handler?(currentNode, nil)
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        // Appends a new element to the stack
-        root.append((element: (key: elementName, value: attributeDict), children: []))
+        var dict: [String: Any] = [:]
+        dict["$parent"] = currentNode
+        attributeDict.forEach { dict.updateValue($1, forKey: $0) }
+        currentNode[elementName] = dict
+        currentNode = currentNode[elementName] as! [String : Any]
     }
     
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        guard var node = root.last else { return }
-        
-        // Is it element with children?
-        if let children = node.children, children.count > 0 {
-            // Passes the children to value
-            node.element.value = node.children
-        }
-        else {
-            // Does element contains properties?
-            if var element = node.element.value as? [String: Any], element.count > 0 {
-                // Creates a new property for text value
-                element["$text"] = nodeValue
-                node.element.value = element
+        func createNewElement(named: String, element: inout [String: Any], value: Any) -> Any {
+            if let existingElement = element[named] {
+                if var existingElement = existingElement as? [Any] {
+                    existingElement.append(value)
+                    return existingElement
+                }
+                else {
+                    var arrayOfElements: [Any] = []
+                    arrayOfElements.append(element[named]!)
+                    arrayOfElements.append(value)
+                    return arrayOfElements
+                }
             }
             else {
-                node.element.value = nodeValue
+                return value
             }
         }
 
-        // Removes the last element on the stack
-        if root.count > 1 {
-            _ = root.popLast()
+        if let nodeValue = nodeValue, nodeValue.count > 0 {
+            if var parent = currentNode["$parent"] as? [String : Any] {
+                var newElementValue: Any
+                if currentNode.keys.count > 1 { // currentNode includes `_parent` attribute
+                    currentNode["$parent"] = nil
+                    currentNode["$text"] = nodeValue
+                    newElementValue = currentNode
+                }
+                else {
+                    newElementValue = nodeValue
+                }
+                parent[elementName] = createNewElement(named: elementName, element: &parent, value: newElementValue)
+                currentNode = parent
+            }
+            else if var node = currentNode[elementName] as? [String : Any] {
+                node["$text"] = nodeValue
+                currentNode[elementName] = node
+            }
         }
-
-        // Appends the current element to his parent's children
-        root[root.count - 1].children?.append(node.element)
+        else {
+            var parent = currentNode["$parent"] as! [String : Any]
+            currentNode["$parent"] = nil
+            parent[elementName] = createNewElement(named: elementName, element: &parent, value: currentNode)
+            currentNode = parent
+        }
 
         // deinit nodeValue
         nodeValue = nil
