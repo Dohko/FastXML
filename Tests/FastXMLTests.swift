@@ -1,5 +1,5 @@
 //
-//  SwiftXMLTests.swift
+//  FastXMLTests.swift
 //  Copyright © 2018 Morgan Fitussi
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -21,9 +21,9 @@
 //  THE SOFTWARE.
 
 import XCTest
-@testable import SwiftXML
+@testable import FastXML
 
-class SwiftXMLTests: XCTestCase {
+class FastXMLTests: XCTestCase {
     
     private typealias Node = [String: Any]
     
@@ -46,7 +46,7 @@ class SwiftXMLTests: XCTestCase {
     }
     
     private func parse(xml: String) {
-        let parser = SwiftXML(xmldata: xml.data(using: .utf8)!)
+        let parser = FastXML(xmldata: xml.data(using: .utf8)!)
         parser.parse { (dict, error) in
             self.dataParsed = dict
             self.error = error
@@ -65,7 +65,7 @@ class SwiftXMLTests: XCTestCase {
         
         // Then
         XCTAssertNotNil(error)
-        XCTAssertEqual(error as? SwiftXML.Error, SwiftXML.Error.invalidXML)
+        XCTAssertEqual(error as? FastXML.Error, FastXML.Error.invalidXML)
         XCTAssertNil(dataParsed)
     }
     
@@ -78,7 +78,7 @@ class SwiftXMLTests: XCTestCase {
         
         // Then
         XCTAssertNotNil(error)
-        XCTAssertEqual(error as? SwiftXML.Error, SwiftXML.Error.invalidXML)
+        XCTAssertEqual(error as? FastXML.Error, FastXML.Error.invalidXML)
         XCTAssertNil(dataParsed)
     }
     
@@ -122,8 +122,8 @@ class SwiftXMLTests: XCTestCase {
         parse(xml: xml)
         
         // Then
-        let tagValue = (dataParsed![tag] as! [String: String])["text"] as? String
-        let propertyValue = (dataParsed![tag] as! [String: String])["$attr"] as? String
+        let tagValue = (dataParsed![tag] as! [String: String])["text"]
+        let propertyValue = (dataParsed![tag] as! [String: String])["$attr"]
         
         XCTAssertNotNil(dataParsed)
         XCTAssertTrue(dataParsed!.keys.contains(tag))
@@ -234,7 +234,7 @@ class SwiftXMLTests: XCTestCase {
         
         // Then
         let tagValue = (dataParsed!["俄语"] as! [String: String])["text"]
-        let propertyValue = (dataParsed!["俄语"] as! [String: String])["$լեզու"] as? String
+        let propertyValue = (dataParsed!["俄语"] as! [String: String])["$լեզու"]
         
         XCTAssertNotNil(dataParsed)
         XCTAssertTrue(dataParsed!.keys.contains("俄语"))

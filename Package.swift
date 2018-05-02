@@ -1,1 +1,1 @@
-let package = Package(name: "SwiftXML")
+let package = Package(name: "FastXML")

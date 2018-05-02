@@ -1,5 +1,5 @@
 //
-//  SwiftXML.h
+//  FastXML.h
 //
 //  Copyright © 2018 Morgan Fitussi
 //
@@ -23,8 +23,8 @@
 
 @import Foundation;
 
-//! Project version number for SwiftXML.
-FOUNDATION_EXPORT double SwiftXMLVersionNumber;
+//! Project version number for FastXML.
+FOUNDATION_EXPORT double FastXMLVersionNumber;
 
-//! Project version string for SwiftXML.
-FOUNDATION_EXPORT const unsigned char SwiftXMLVersionString[];
+//! Project version string for FastXML.
+FOUNDATION_EXPORT const unsigned char FastXMLVersionString[];

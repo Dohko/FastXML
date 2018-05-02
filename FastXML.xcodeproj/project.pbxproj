@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		A46A1B032090709D000F54DB /* SwiftXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A46A1AF92090709D000F54DB /* SwiftXML.framework */; };
-		A46A1B082090709D000F54DB /* SwiftXMLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1B072090709D000F54DB /* SwiftXMLTests.swift */; };
-		A46A1B0A2090709D000F54DB /* SwiftXML.h in Headers */ = {isa = PBXBuildFile; fileRef = A46A1AFC2090709D000F54DB /* SwiftXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		A46A1B16209070F2000F54DB /* SwiftXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1B15209070F2000F54DB /* SwiftXML.swift */; };
+		A46A1B032090709D000F54DB /* FastXML.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A46A1AF92090709D000F54DB /* FastXML.framework */; };
+		A46A1B082090709D000F54DB /* FastXMLTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1B072090709D000F54DB /* FastXMLTests.swift */; };
+		A46A1B0A2090709D000F54DB /* FastXML.h in Headers */ = {isa = PBXBuildFile; fileRef = A46A1AFC2090709D000F54DB /* FastXML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A46A1B16209070F2000F54DB /* FastXML.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1B15209070F2000F54DB /* FastXML.swift */; };
 		A46A1B1B209206EA000F54DB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A46A1B1A209206EA000F54DB /* README.md */; };
 		A46A1B1D20920C2B000F54DB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A46A1B1C20920C2B000F54DB /* LICENSE */; };
 /* End PBXBuildFile section */
@@ -26,13 +26,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		A46A1AF92090709D000F54DB /* SwiftXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SwiftXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		A46A1AFC2090709D000F54DB /* SwiftXML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SwiftXML.h; sourceTree = "<group>"; };
+		A46A1AF92090709D000F54DB /* FastXML.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FastXML.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A46A1AFC2090709D000F54DB /* FastXML.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = FastXML.h; sourceTree = "<group>"; };
 		A46A1AFD2090709D000F54DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A46A1B022090709D000F54DB /* SwiftXMLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SwiftXMLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		A46A1B072090709D000F54DB /* SwiftXMLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftXMLTests.swift; sourceTree = "<group>"; };
+		A46A1B022090709D000F54DB /* FastXMLTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FastXMLTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A46A1B072090709D000F54DB /* FastXMLTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastXMLTests.swift; sourceTree = "<group>"; };
 		A46A1B092090709D000F54DB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A46A1B15209070F2000F54DB /* SwiftXML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftXML.swift; sourceTree = "<group>"; };
+		A46A1B15209070F2000F54DB /* FastXML.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastXML.swift; sourceTree = "<group>"; };
 		A46A1B1A209206EA000F54DB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A46A1B1C20920C2B000F54DB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -49,7 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A46A1B032090709D000F54DB /* SwiftXML.framework in Frameworks */,
+				A46A1B032090709D000F54DB /* FastXML.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,8 +71,8 @@
 		A46A1AFA2090709D000F54DB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A46A1AF92090709D000F54DB /* SwiftXML.framework */,
-				A46A1B022090709D000F54DB /* SwiftXMLTests.xctest */,
+				A46A1AF92090709D000F54DB /* FastXML.framework */,
+				A46A1B022090709D000F54DB /* FastXMLTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -80,7 +80,7 @@
 		A46A1B062090709D000F54DB /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				A46A1B072090709D000F54DB /* SwiftXMLTests.swift */,
+				A46A1B072090709D000F54DB /* FastXMLTests.swift */,
 				A46A1B092090709D000F54DB /* Info.plist */,
 			);
 			path = Tests;
@@ -89,7 +89,7 @@
 		A46A1B13209070BA000F54DB /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				A46A1B15209070F2000F54DB /* SwiftXML.swift */,
+				A46A1B15209070F2000F54DB /* FastXML.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -97,7 +97,7 @@
 		A46A1B14209070C2000F54DB /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				A46A1AFC2090709D000F54DB /* SwiftXML.h */,
+				A46A1AFC2090709D000F54DB /* FastXML.h */,
 				A46A1AFD2090709D000F54DB /* Info.plist */,
 			);
 			path = Resource;
@@ -110,16 +110,16 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A46A1B0A2090709D000F54DB /* SwiftXML.h in Headers */,
+				A46A1B0A2090709D000F54DB /* FastXML.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		A46A1AF82090709D000F54DB /* SwiftXML */ = {
+		A46A1AF82090709D000F54DB /* FastXML */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A46A1B0D2090709D000F54DB /* Build configuration list for PBXNativeTarget "SwiftXML" */;
+			buildConfigurationList = A46A1B0D2090709D000F54DB /* Build configuration list for PBXNativeTarget "FastXML" */;
 			buildPhases = (
 				A46A1AF42090709D000F54DB /* Sources */,
 				A46A1AF52090709D000F54DB /* Frameworks */,
@@ -130,14 +130,14 @@
 			);
 			dependencies = (
 			);
-			name = SwiftXML;
+			name = FastXML;
 			productName = SwiftXML;
-			productReference = A46A1AF92090709D000F54DB /* SwiftXML.framework */;
+			productReference = A46A1AF92090709D000F54DB /* FastXML.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		A46A1B012090709D000F54DB /* SwiftXMLTests */ = {
+		A46A1B012090709D000F54DB /* FastXMLTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = A46A1B102090709D000F54DB /* Build configuration list for PBXNativeTarget "SwiftXMLTests" */;
+			buildConfigurationList = A46A1B102090709D000F54DB /* Build configuration list for PBXNativeTarget "FastXMLTests" */;
 			buildPhases = (
 				A46A1AFE2090709D000F54DB /* Sources */,
 				A46A1AFF2090709D000F54DB /* Frameworks */,
@@ -148,9 +148,9 @@
 			dependencies = (
 				A46A1B052090709D000F54DB /* PBXTargetDependency */,
 			);
-			name = SwiftXMLTests;
+			name = FastXMLTests;
 			productName = SwiftXMLTests;
-			productReference = A46A1B022090709D000F54DB /* SwiftXMLTests.xctest */;
+			productReference = A46A1B022090709D000F54DB /* FastXMLTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -172,7 +172,7 @@
 					};
 				};
 			};
-			buildConfigurationList = A46A1AF32090709D000F54DB /* Build configuration list for PBXProject "SwiftXML" */;
+			buildConfigurationList = A46A1AF32090709D000F54DB /* Build configuration list for PBXProject "FastXML" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -184,8 +184,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				A46A1AF82090709D000F54DB /* SwiftXML */,
-				A46A1B012090709D000F54DB /* SwiftXMLTests */,
+				A46A1AF82090709D000F54DB /* FastXML */,
+				A46A1B012090709D000F54DB /* FastXMLTests */,
 			);
 		};
 /* End PBXProject section */
@@ -214,7 +214,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A46A1B16209070F2000F54DB /* SwiftXML.swift in Sources */,
+				A46A1B16209070F2000F54DB /* FastXML.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -222,7 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A46A1B082090709D000F54DB /* SwiftXMLTests.swift in Sources */,
+				A46A1B082090709D000F54DB /* FastXMLTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,7 +231,7 @@
 /* Begin PBXTargetDependency section */
 		A46A1B052090709D000F54DB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = A46A1AF82090709D000F54DB /* SwiftXML */;
+			target = A46A1AF82090709D000F54DB /* FastXML */;
 			targetProxy = A46A1B042090709D000F54DB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -370,12 +370,8 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Resource/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.morganfitussi.SwiftXML;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.morganfitussi.FastXML;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -396,12 +392,8 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Resource/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.morganfitussi.SwiftXML;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.morganfitussi.FastXML;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 4.0;
@@ -414,14 +406,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.morganfitussi.SwiftXMLTests;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.morganfitussi.FastXMLTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -432,14 +422,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Tests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.morganfitussi.SwiftXMLTests;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.morganfitussi.FastXMLTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -448,7 +436,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		A46A1AF32090709D000F54DB /* Build configuration list for PBXProject "SwiftXML" */ = {
+		A46A1AF32090709D000F54DB /* Build configuration list for PBXProject "FastXML" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A46A1B0B2090709D000F54DB /* Debug */,
@@ -457,7 +445,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A46A1B0D2090709D000F54DB /* Build configuration list for PBXNativeTarget "SwiftXML" */ = {
+		A46A1B0D2090709D000F54DB /* Build configuration list for PBXNativeTarget "FastXML" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A46A1B0E2090709D000F54DB /* Debug */,
@@ -466,7 +454,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		A46A1B102090709D000F54DB /* Build configuration list for PBXNativeTarget "SwiftXMLTests" */ = {
+		A46A1B102090709D000F54DB /* Build configuration list for PBXNativeTarget "FastXMLTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				A46A1B112090709D000F54DB /* Debug */,

@@ -1,5 +1,5 @@
 //
-//  SwiftXML.swift
+//  FastXML.swift
 //
 //  Copyright © 2018 Morgan Fitussi
 //
@@ -25,7 +25,7 @@ import Foundation
 
 /// Fast XML parsing library
 @objcMembers
-class SwiftXML: NSObject {
+class FastXML: NSObject {
     
     enum Error: Swift.Error {
         case invalidXML
@@ -64,7 +64,7 @@ class SwiftXML: NSObject {
         parser.delegate = self
         
         guard parser.parse() else {
-            handler(nil, SwiftXML.Error.invalidXML)
+            handler(nil, FastXML.Error.invalidXML)
             return
         }
     }
@@ -72,7 +72,7 @@ class SwiftXML: NSObject {
 }
 
 // MARK: XMLParserDelegate
-extension SwiftXML: XMLParserDelegate {
+extension FastXML: XMLParserDelegate {
     
     /// Recursively reduce the array of Element to Dictionary
     ///
