@@ -80,22 +80,32 @@ extension FastXML: XMLParserDelegate {
     ///
     private func reduce(_ elements: [Element]) -> [String: Any] {
         return elements.reduce(into: [String : Any]()) {
+            // this element contains tags
             if let elements = $1.value as? [Element] {
+                // and attributes
                 if $1.attributes.count > 0 {
+                    // so transforms its attributes by adding `$` as prefix
                     let attributes = Dictionary(uniqueKeysWithValues: $1.attributes.map { ("$\($0.key)", $0.value) })
+                    // and merges children's tags with attributes
                     $0[$1.key] = attributes.reduce(reduce(elements)) { (result, pair) in
-                        var result = result // without this line we could not modify the dictionary
+                        // without this line we could not modify the dictionary
+                        var result = result
                         result[pair.0] = pair.1
                         return result
                     }
                 }
                 else {
+                    // if an element with the same key exists
                     if let existingElement = $0[$1.key] {
+                        // if it's already an array
                         if var existingElement = existingElement as? [[String : Any]] {
+                            // so we'll appends it
                             existingElement.append(reduce(elements))
                             $0[$1.key] = existingElement
                         }
                         else {
+                            // otherwise creates an array, appends the previous element
+                            // and the current element into it
                             var arrayOfElements: [[String : Any]] = []
                             arrayOfElements.append(existingElement as! [String : Any])
                             arrayOfElements.append(reduce(elements))
@@ -103,17 +113,23 @@ extension FastXML: XMLParserDelegate {
                         }
                     }
                     else {
+                        // new element for a new key
                         $0[$1.key] = reduce(elements)
                     }
                 }
             }
+            // is the tag's value
             else {
+                // with attributes
                 if $1.attributes.count > 0 {
+                    // so transforms its attributes by adding `$` as prefix
                     var attributes = Dictionary(uniqueKeysWithValues: $1.attributes.map { ("$\($0.key)", $0.value) })
+                    // and appends a `text` attribute with its value
                     attributes["text"] = $1.value as? String
                     $0[$1.key] = attributes
                 }
                 else {
+                    // new element for a new key
                     $0[$1.key] = $1.value
                 }
             }
@@ -130,7 +146,7 @@ extension FastXML: XMLParserDelegate {
             if let rootNode = root.first {
                 handler?([rootNode.element.key: rootNode.element.value as Any], nil)
             }
-            // Invalid XML - plain text
+                // Invalid XML - plain text
             else {
                 handler?([:], nil)
             }
@@ -171,7 +187,4 @@ extension FastXML: XMLParserDelegate {
         nodeValue = (nodeValue ?? "") + trimmedString
     }
     
-    func parser(_ parser: XMLParser, parseErrorOccurred parseError: Error) {
-        handler?(nil, parseError)
-    }
 }
