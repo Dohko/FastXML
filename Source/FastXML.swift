@@ -78,7 +78,8 @@ extension FastXML: XMLParserDelegate {
     ///
     /// - parameter elements: A array of Element
     ///
-    private func reduce(_ elements: [Element]) -> [String: Any] {
+    private func reduce(_ elements: [Element]?) -> [String: Any] {
+        guard let elements = elements else { return [:] }
         return elements.reduce(into: [String : Any]()) {
             // this element contains tags
             if let elements = $1.value as? [Element] {
@@ -138,19 +139,7 @@ extension FastXML: XMLParserDelegate {
     
     func parserDidEndDocument(_ parser: XMLParser) {
         // documents with a stack of tags
-        if let rootNode = root.first, let elements = rootNode.children {
-            handler?(reduce(elements), nil)
-        }
-        else {
-            // simple XML data with uniq tag
-            if let rootNode = root.first {
-                handler?([rootNode.element.key: rootNode.element.value as Any], nil)
-            }
-                // Invalid XML - plain text
-            else {
-                handler?([:], nil)
-            }
-        }
+        handler?(reduce(root.first?.children), nil)
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
