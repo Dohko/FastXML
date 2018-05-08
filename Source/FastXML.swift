@@ -31,18 +31,18 @@ class FastXML: NSObject {
         case invalidXML
     }
     
-    typealias Handler = ([String : Any]?, Error?) -> Void
+    typealias Handler = (Tag?, Error?) -> Void
     private var handler: Handler?
 
     private let data: Data
 
-    private typealias Element = (key: String, value: Any?, attributes: [String : String])
+    internal typealias Element = (key: String, value: Any?, attributes: [String : String])
     private typealias Node = (element: Element, children: [Element]?)
 
     private var nodeValue: String?
 
     private var root: [Node] = []
-    
+    private var reduced: [String : Any] = [:]
     // MARK: Lifecycle
     
     /// Creates an instance with the specified `xmldata`
@@ -68,78 +68,14 @@ class FastXML: NSObject {
             return
         }
     }
-    
 }
 
 // MARK: XMLParserDelegate
 extension FastXML: XMLParserDelegate {
     
-    /// Recursively reduce the array of Element to Dictionary
-    ///
-    /// - parameter elements: A array of Element
-    ///
-    private func reduce(_ elements: [Element]?) -> [String: Any] {
-        guard let elements = elements else { return [:] }
-        return elements.reduce(into: [String : Any]()) {
-            // this element contains tags
-            if let elements = $1.value as? [Element] {
-                // and attributes
-                if $1.attributes.count > 0 {
-                    // so transforms its attributes by adding `$` as prefix
-                    let attributes = Dictionary(uniqueKeysWithValues: $1.attributes.map { ("$\($0.key)", $0.value) })
-                    // and merges children's tags with attributes
-                    $0[$1.key] = attributes.reduce(reduce(elements)) { (result, pair) in
-                        // without this line we could not modify the dictionary
-                        var result = result
-                        result[pair.0] = pair.1
-                        return result
-                    }
-                }
-                else {
-                    // if an element with the same key exists
-                    if let existingElement = $0[$1.key] {
-                        // if it's already an array
-                        if var existingElement = existingElement as? [[String : Any]] {
-                            // so we'll appends it
-                            existingElement.append(reduce(elements))
-                            $0[$1.key] = existingElement
-                        }
-                        else {
-                            // otherwise creates an array, appends the previous element
-                            // and the current element into it
-                            var arrayOfElements: [[String : Any]] = []
-                            arrayOfElements.append(existingElement as! [String : Any])
-                            arrayOfElements.append(reduce(elements))
-                            $0[$1.key] = arrayOfElements
-                        }
-                    }
-                    else {
-                        // new element for a new key
-                        $0[$1.key] = reduce(elements)
-                    }
-                }
-            }
-            // is the tag's value
-            else {
-                // with attributes
-                if $1.attributes.count > 0 {
-                    // so transforms its attributes by adding `$` as prefix
-                    var attributes = Dictionary(uniqueKeysWithValues: $1.attributes.map { ("$\($0.key)", $0.value) })
-                    // and appends a `text` attribute with its value
-                    attributes["text"] = $1.value as? String
-                    $0[$1.key] = attributes
-                }
-                else {
-                    // new element for a new key
-                    $0[$1.key] = $1.value
-                }
-            }
-        }
-    }
-    
     func parserDidEndDocument(_ parser: XMLParser) {
-        // documents with a stack of tags
-        handler?(reduce(root.first?.children), nil)
+        let children = root.first?.children ?? []
+        handler?(Tag(children.toDictionary()), nil)
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -176,4 +112,74 @@ extension FastXML: XMLParserDelegate {
         nodeValue = (nodeValue ?? "") + trimmedString
     }
     
+}
+
+
+fileprivate extension Sequence where Iterator.Element == FastXML.Element {
+    /// Recursively reduce the array of Element to Dictionary
+    func toDictionary() -> [String: Any] {
+        return reduce(into: [String : Any]()) {
+            func createElement(_ elm: () -> Any, _ dict: inout [String : Any], _ key: String ) {
+                // if an element with the same key exists
+                if let existingElement = dict[key] {
+                    // if it's already an array
+                    if var existingElement = existingElement as? [Any] {
+                        // so we'll appends it
+                        existingElement.append(elm())
+                        dict[key] = existingElement
+                    }
+                    else {
+                        // otherwise creates an array, appends the previous element
+                        // and the current element into it
+                        var arrayOfElements: [Any] = []
+                        arrayOfElements.append(existingElement)
+                        arrayOfElements.append(elm())
+                        dict[key] = arrayOfElements
+                    }
+                }
+                else {
+                    // new element for a new key
+                    dict[key] = elm()
+                }
+            }
+            
+            // this element contains tags
+            if let elements = $1.value as? [Element] {
+                // and attributes
+                if $1.attributes.count > 0 {
+                    // so transforms its attributes by adding `$` as prefix
+                    let attributes = Dictionary(uniqueKeysWithValues: $1.attributes.map { ("$\($0.key)", $0.value) })
+                    // and merges children's tags with attributes
+                    $0[$1.key] = attributes.reduce(elements.toDictionary()) { (result, pair) in
+                        // without this line we could not modify the dictionary
+                        var result = result
+                        result[pair.0] = pair.1
+                        return result
+                    }
+                }
+                else {
+                    createElement({ elements.toDictionary() }, &$0, $1.key)
+                }
+            }
+                // is the tag's value
+            else {
+                let newElement: Any
+                // with attributes
+                if $1.attributes.count > 0 {
+                    // so transforms its attributes by adding `$` as prefix
+                    var attributes = Dictionary(uniqueKeysWithValues: $1.attributes.map { ("$\($0.key)", $0.value) })
+                    // and appends a `@text` key with its value
+                    attributes["@text"] = $1.value as? String
+                    newElement = attributes
+                }
+                else {
+                    // Conforms to XML standard 1.1
+                    // if value is nil, set a string empty value
+                    newElement = $1.value ?? ""
+                }
+                
+                createElement({ newElement }, &$0, $1.key)
+            }
+        }
+    }
 }
