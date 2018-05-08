@@ -28,7 +28,7 @@ class FastXMLTests: XCTestCase {
     private typealias Node = [String: Any]
     
     private var error: Error?
-    private var dataParsed: Node?
+    private var dataParsed: FastXML.Tag?
     
     private var xml: String = ""
     private let tag = "tag"
@@ -93,8 +93,8 @@ class FastXMLTests: XCTestCase {
         
         // Then
         XCTAssertNotNil(dataParsed)
-        XCTAssertNil(dataParsed![tag])
-        XCTAssertFalse(dataParsed!.keys.contains(tag))
+        XCTAssertNotNil(dataParsed![tag].value, "Conforms to standard XML 1.1 - cf. 44")
+        XCTAssertTrue(dataParsed!.tags.contains(tag))
     }
     
     func testParseXMLWithElement() {
@@ -108,8 +108,8 @@ class FastXMLTests: XCTestCase {
         
         // Then
         XCTAssertNotNil(dataParsed)
-        XCTAssertTrue(dataParsed!.keys.contains(tag))
-        XCTAssertEqual(dataParsed![tag] as? String, value)
+        XCTAssertTrue(dataParsed!.tags.contains(tag))
+        XCTAssertEqual(dataParsed![tag].value, value)
     }
     
     func testAttributesCanBeParsed() {
@@ -122,13 +122,10 @@ class FastXMLTests: XCTestCase {
         parse(xml: xml)
         
         // Then
-        let tagValue = (dataParsed![tag] as! [String: String])["text"]
-        let propertyValue = (dataParsed![tag] as! [String: String])["$attr"]
-        
         XCTAssertNotNil(dataParsed)
-        XCTAssertTrue(dataParsed!.keys.contains(tag))
-        XCTAssertEqual(tagValue, value)
-        XCTAssertEqual(propertyValue, "my_attr")
+        XCTAssertTrue(dataParsed!.tags.contains(tag))
+        XCTAssertEqual(dataParsed![tag].value, value)
+        XCTAssertEqual(dataParsed![tag]["$attr"].value, "my_attr")
     }
     
     func testParseXMLWithStackOfTags() {
@@ -142,24 +139,17 @@ class FastXMLTests: XCTestCase {
             <ent3>Hello ent3</ent3>
         </ent1>
         """
-        
+
         // When
         parse(xml: xml)
-        
+
         // Then
         XCTAssertNotNil(dataParsed)
-        let ent1 = dataParsed!["ent1"] as? Node
-        XCTAssertNotNil(ent1)
-        let ent2 = ent1!["ent2"] as? Node
-        XCTAssertNotNil(ent2)
-        let ent21 = ent2!["ent21"] as? String
-        XCTAssertEqual(ent21, "Hello ent21")
-        let ent22 = ent2!["ent22"] as? String
-        XCTAssertEqual(ent22, "Hello ent22")
-        let ent3 = ent1!["ent3"] as? String
-        XCTAssertEqual(ent3, "Hello ent3")
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"]["ent21"].value, "Hello ent21")
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"]["ent22"].value, "Hello ent22")
+        XCTAssertEqual(dataParsed!["ent1"]["ent3"].value, "Hello ent3")
     }
-    
+
     func testParseXMLWithStackOfTagsAndAttributes() {
         // Given
         let xml = """
@@ -171,29 +161,22 @@ class FastXMLTests: XCTestCase {
             <ent3 prop="prop3">Hello ent3</ent3>
         </ent1>
         """
-        
+
         // When
         parse(xml: xml)
-        
+
         // Then
         XCTAssertNotNil(dataParsed)
-        let ent1 = dataParsed!["ent1"] as? Node
-        XCTAssertNotNil(ent1)
-        XCTAssertEqual(ent1!["$prop"] as? String, "prop1")
-        let ent2 = ent1!["ent2"] as? Node
-        XCTAssertNotNil(ent2)
-        XCTAssertEqual(ent2!["$prop"] as? String, "prop2")
-        let ent21 = ent2!["ent21"] as? Node
-        XCTAssertEqual(ent21!["$prop"] as? String, "prop21")
-        XCTAssertEqual(ent21!["text"] as? String, "Hello ent21")
-        let ent22 = ent2!["ent22"] as? Node
-        XCTAssertEqual(ent22!["$prop"] as? String, "prop22")
-        XCTAssertEqual(ent22!["text"] as? String, "Hello ent22")
-        let ent3 = ent1!["ent3"] as? Node
-        XCTAssertEqual(ent3!["$prop"] as? String, "prop3")
-        XCTAssertEqual(ent3!["text"] as? String, "Hello ent3")
+        XCTAssertEqual(dataParsed!["ent1"]["$prop"].value, "prop1")
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"]["$prop"].value, "prop2")
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"]["ent21"]["$prop"].value, "prop21")
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"]["ent21"].value, "Hello ent21")
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"]["ent22"]["$prop"].value, "prop22")
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"]["ent22"].value, "Hello ent22")
+        XCTAssertEqual(dataParsed!["ent1"]["ent3"]["$prop"].value, "prop3")
+        XCTAssertEqual(dataParsed!["ent1"]["ent3"].value, "Hello ent3")
     }
-    
+
     func testParseArrayOfTags() {
         // Given
         let xml = """
@@ -208,40 +191,36 @@ class FastXMLTests: XCTestCase {
             </ent2>
         </ent1>
         """
-        
+
         // When
         parse(xml: xml)
-        
+
         // Then
         XCTAssertNotNil(dataParsed)
-        let ent1 = dataParsed!["ent1"] as? Node
-        XCTAssertNotNil(ent1)
-        let ent2 = ent1!["ent2"] as? [Node]
-        XCTAssertNotNil(ent2)
-        XCTAssertEqual(ent2?.count, 2)
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"].count, 2)
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"][0]["ent21"][0].value, "Hello ent21 first")
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"][0]["ent21"][1].value, "Hello ent21 second")
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"][1]["ent22"][0].value, "Hello ent22 first")
+        XCTAssertEqual(dataParsed!["ent1"]["ent2"][1]["ent22"][1].value, "Hello ent22 second")
     }
-    
-    
+
     func testParsingInternationalXML() {
         // Given
         let xml = """
         <?xml version="1.0" encoding="UTF-8"?>
         <俄语 լեզու="ռուսերեն">данные</俄语>
         """
-        
+
         // When
         parse(xml: xml)
-        
+
         // Then
-        let tagValue = (dataParsed!["俄语"] as! [String: String])["text"]
-        let propertyValue = (dataParsed!["俄语"] as! [String: String])["$լեզու"]
-        
         XCTAssertNotNil(dataParsed)
-        XCTAssertTrue(dataParsed!.keys.contains("俄语"))
-        XCTAssertEqual(tagValue, "данные")
-        XCTAssertEqual(propertyValue, "ռուսերեն")
+        XCTAssertTrue(dataParsed!.tags.contains("俄语"))
+        XCTAssertEqual(dataParsed!["俄语"].value, "данные")
+        XCTAssertEqual(dataParsed!["俄语"]["$լեզու"].value, "ռուսերեն")
     }
-    
+
     func testPerformance() {
         self.measure {
             var xmlString = ""
