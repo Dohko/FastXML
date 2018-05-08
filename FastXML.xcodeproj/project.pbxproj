@@ -14,6 +14,7 @@
 		A46A1B1B209206EA000F54DB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A46A1B1A209206EA000F54DB /* README.md */; };
 		A46A1B1D20920C2B000F54DB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A46A1B1C20920C2B000F54DB /* LICENSE */; };
 		A46A1E2E20A094D900135D35 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1E2D20A094D900135D35 /* Tag.swift */; };
+		A46A1E3120A1B63F00135D35 /* FastXMLPerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1E3020A1B63F00135D35 /* FastXMLPerformanceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -37,6 +38,7 @@
 		A46A1B1A209206EA000F54DB /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		A46A1B1C20920C2B000F54DB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A46A1E2D20A094D900135D35 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
+		A46A1E3020A1B63F00135D35 /* FastXMLPerformanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastXMLPerformanceTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				A46A1B072090709D000F54DB /* FastXMLTests.swift */,
+				A46A1E3020A1B63F00135D35 /* FastXMLPerformanceTest.swift */,
 				A46A1B092090709D000F54DB /* Info.plist */,
 			);
 			path = Tests;
@@ -226,6 +229,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A46A1E3120A1B63F00135D35 /* FastXMLPerformanceTest.swift in Sources */,
 				A46A1B082090709D000F54DB /* FastXMLTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
