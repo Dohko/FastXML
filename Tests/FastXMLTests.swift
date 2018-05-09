@@ -56,7 +56,7 @@ class FastXMLTests: XCTestCase {
         wait(for: [expectation], timeout: 2.0)
     }
     
-    func testParseInvalidXML() {
+    func testInvalidXML() {
         // Given
         xml = "invalid xml"
         
@@ -69,7 +69,7 @@ class FastXMLTests: XCTestCase {
         XCTAssertNil(dataParsed)
     }
     
-    func testCannotParseEmptyData() {
+    func testEmptyData() {
         // Given
         let xml = ""
         
@@ -82,7 +82,7 @@ class FastXMLTests: XCTestCase {
         XCTAssertNil(dataParsed)
     }
     
-    func testParseBasicXMLWithoutElement() {
+    func testBasicXMLWithoutElement() {
         // Given
         let xml = """
         <\(tag)></\(tag)>
@@ -97,7 +97,7 @@ class FastXMLTests: XCTestCase {
         XCTAssertTrue(dataParsed!.tags.contains(tag))
     }
     
-    func testParseXMLWithElement() {
+    func testXMLWithElement() {
         // Given
         let xml = """
         <\(tag)>\(value)</\(tag)>
@@ -112,7 +112,7 @@ class FastXMLTests: XCTestCase {
         XCTAssertEqual(dataParsed![tag].value, value)
     }
     
-    func testAttributesCanBeParsed() {
+    func testAttributeOnSimpleXML() {
         // Given
         let xml = """
         <\(tag) attr="my_attr">\(value)</\(tag)>
@@ -128,7 +128,7 @@ class FastXMLTests: XCTestCase {
         XCTAssertEqual(dataParsed![tag]["$attr"].value, "my_attr")
     }
     
-    func testParseXMLWithStackOfTags() {
+    func testXMLWithStackOfTags() {
         // Given
         let xml = """
         <ent1>
@@ -150,7 +150,7 @@ class FastXMLTests: XCTestCase {
         XCTAssertEqual(dataParsed!["ent1"]["ent3"].value, "Hello ent3")
     }
 
-    func testParseXMLWithStackOfTagsAndAttributes() {
+    func testXMLWithStackOfTagsAndAttributes() {
         // Given
         let xml = """
         <ent1 prop="prop1">
@@ -177,7 +177,7 @@ class FastXMLTests: XCTestCase {
         XCTAssertEqual(dataParsed!["ent1"]["ent3"].value, "Hello ent3")
     }
 
-    func testParseArrayOfTags() {
+    func testArrayOfTags() {
         // Given
         let xml = """
         <ent1>
@@ -204,7 +204,7 @@ class FastXMLTests: XCTestCase {
         XCTAssertEqual(dataParsed!["ent1"]["ent2"][1]["ent22"][1].value, "Hello ent22 second")
     }
 
-    func testParsingInternationalXML() {
+    func testInternationalXML() {
         // Given
         let xml = """
         <?xml version="1.0" encoding="UTF-8"?>
