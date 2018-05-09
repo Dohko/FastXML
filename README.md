@@ -1,12 +1,52 @@
 # FastXML
 
-A Fast and Swifty [XML](https://www.w3.org/TR/2006/REC-xml11-20060816/) parser written in [Swift](https://swift.org)
+A Fast, Swifty and Tested [XML](https://www.w3.org/TR/2006/REC-xml11-20060816/) parser written in [Swift](https://swift.org)
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/Carthage/Carthage/master/LICENSE.md)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Cocoapods compatible](https://img.shields.io/cocoapods/v/FastXML.svg?style=flat)](https://cocoapods.org/pods/FastXML)
 [![Build Status](https://travis-ci.org/Dohko/FastXML.svg?branch=master)](https://travis-ci.org/Dohko/FastXML)
 ![Platform](https://img.shields.io/badge/platforms-iOS%208.0+%20%7C%20macOS%2010.10+%20%7C%20tvOS%209.0+%20%7C%20watchOS%202.0+-333333.svg)
+
+## Usage
+
+### Sample XML
+
+```xml
+<breakfast_menu>
+	<food>
+		<name language="english">Belgian Waffles</name>
+		<price currency="dollar">5.95</price>
+		<description>Two of our famous Belgian Waffles with plenty of real maple syrup</description>
+		<calories>650</calories>
+	</food>
+	<food>
+		<name language="french">Toast français</name>
+		<price currency="euro">3.50</price>
+		<description>Tranches épaisses faites à partir de notre pain au levain fait maison</description>
+		<calories>600</calories>
+	</food>
+</breakfast_menu>
+```
+
+### Given
+```swift
+FastXML(xmldata: xmlString.data(using: .utf8)!) { (xml, error) in
+	print(xml!["breakfast_menu"]["food"][0]["name"].value)
+	print(xml!["breakfast_menu"]["food"][0]["name"]["$language"].value)
+	print(xml!["breakfast_menu"].tags)
+	print(xml!["breakfast_menu"]["food"][0].tags)
+	print(xml!["breakfast_menu"]["food"][0]["name"].attributes)
+}
+```
+
+### Output
+	"Belgian Waffles"
+	"english"
+	["food"]
+	["name","price","description","calories"]
+	["language"]
+
 
 ## Requirements
 
