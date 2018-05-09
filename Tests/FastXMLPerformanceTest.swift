@@ -25,7 +25,7 @@ import XCTest
 
 class FastXMLPerformanceTest: XCTestCase {
     
-    func testParseDeepSchemaPerformance() {
+    func testPerformanceOfParseDeepSchema() {
         self.measure {
             var deepXML = ""
             for index in 1...100000 {
@@ -45,7 +45,7 @@ class FastXMLPerformanceTest: XCTestCase {
         }
     }
     
-    func testParseLargeDocumentPerformance() {
+    func testPerformanceOfDocument() {
         self.measure {
             var largeXML = "<root>"
             for index in 1...100000 {
@@ -62,7 +62,7 @@ class FastXMLPerformanceTest: XCTestCase {
         }
     }
 
-    func testParseLargeDocumentWithUniqTagNamePerformance() {
+    func testPerformanceOfLargeDocumentWithUniqTagName() {
         self.measure {
             var largeXML = "<root>"
             for index in 1...10000 {
