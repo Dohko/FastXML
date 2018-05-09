@@ -36,7 +36,7 @@ github "Dohko/FastXML" ~> 1.2.0
 #### Manually
 Download and Drag/Drop ```FastXML.swift``` and ```Tag.swift``` into your project.
 
-####Swift Package Manager
+#### Swift Package Manager
 You can use [The Swift Package Manager](https://swift.org/package-manager) to install `FastXML` by adding the proper description to your `Package.swift` file:
 ```swift
 import PackageDescription
