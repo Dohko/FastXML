@@ -157,7 +157,7 @@ fileprivate extension Sequence where Iterator.Element == FastXML.Element {
                 addElement({ attributes }, forKey: $1.key, into: &$0)
             }
             else {
-                // if the tag contains elements, reduces it recursely
+                // if the tag contains elements, reduces it recursively
                 // or sets its value
                 // Conforms to XML standard 1.1
                 // if value is nil, set a string empty value

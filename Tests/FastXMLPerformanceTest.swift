@@ -25,7 +25,7 @@ import XCTest
 
 class FastXMLPerformanceTest: XCTestCase {
     
-    func testPerformanceOfParseDeepSchema() {
+    func testPerformanceOfDeepSchema() {
         self.measure {
             var deepXML = ""
             for index in 1...100000 {
