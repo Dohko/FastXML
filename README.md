@@ -4,6 +4,7 @@ A Fast and Swifty [XML](https://www.w3.org/TR/2006/REC-xml11-20060816/) parser w
 
 [![GitHub license](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/Carthage/Carthage/master/LICENSE.md)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Cocoapods compatible](https://img.shields.io/cocoapods/v/FastXML.svg?style=flat)](https://cocoapods.org/pods/FastXML)
 [![Build Status](https://travis-ci.org/Dohko/FastXML.svg?branch=master)](https://travis-ci.org/Dohko/FastXML)
 ![Platform](https://img.shields.io/badge/platforms-iOS%208.0+%20%7C%20macOS%2010.10+%20%7C%20tvOS%209.0+%20%7C%20watchOS%202.0+-333333.svg)
 
@@ -27,7 +28,8 @@ end
 ```
 
 #### Carthage
-Create a `Cartfile` that lists the framework and run `carthage update`. Follow the [instructions](https://github.com/Carthage/Carthage#if-youre-building-for-ios) to add `$(SRCROOT)/Carthage/Build/iOS/FastXML.framework` to an iOS project.
+Create a `Cartfile` that lists the framework and run `carthage update`.
+Follow the [instructions](https://github.com/Carthage/Carthage#if-youre-building-for-ios) to add `$(SRCROOT)/Carthage/Build/iOS/FastXML.framework` to an iOS project.
 
 ```
 github "Dohko/FastXML" ~> 1.2.0
@@ -64,3 +66,7 @@ FastXML is released under the MIT license:
 - If you **found a bug**, _and can provide steps to reliably reproduce it_, [open an issue](https://github.com/dohko/FastXML/issues/new).
 - If you **have a feature request**, [open an issue](https://github.com/dohko/FastXML/issues/new).
 - If you **want to contribute**, [submit a pull request](https://github.com/dohko/FastXML/compare).
+
+## Author
+
+Morgan Fitussi, mfitussi@gmail.com
