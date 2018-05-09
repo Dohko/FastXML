@@ -46,8 +46,7 @@ class FastXMLTests: XCTestCase {
     }
     
     private func parse(xml: String) {
-        let parser = FastXML(xmldata: xml.data(using: .utf8)!)
-        parser.parse { (dict, error) in
+        FastXML(xmldata: xml.data(using: .utf8)!) { (dict, error) in
             self.dataParsed = dict
             self.error = error
             self.expectation.fulfill()

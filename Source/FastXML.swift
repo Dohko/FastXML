@@ -48,25 +48,23 @@ class FastXML: NSObject {
     /// Creates an instance with the specified `xmldata`
     ///
     /// - parameter xmldata: The XML data
-    init(xmldata data: Data) {
+    @discardableResult init(xmldata data: Data, _ handler: @escaping Handler) {
         self.data = data
+        self.handler = handler
         super.init()
+        
+        parse()
     }
     
     /// Parses the initiated XML data and calls the completion handler on finish
     ///
     /// - parameter handler: A closure to be executed once the XML has parsed or returns an error.
     ///
-    func parse(then handler: @escaping Handler) {
-        self.handler = handler
-        
+    private func parse() {
         let parser = XMLParser(data: self.data)
         parser.delegate = self
         
-        guard parser.parse() else {
-            handler(nil, FastXML.Error.invalidXML)
-            return
-        }
+        guard parser.parse() else { self.handler?(nil, FastXML.Error.invalidXML); return }
     }
 }
 

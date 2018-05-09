@@ -37,7 +37,7 @@ class FastXMLPerformanceTest: XCTestCase {
             }
             
             let expectation = XCTestExpectation(description: "XML should be parsed")
-            FastXML(xmldata: deepXML.data(using: .utf8)!).parse { (dict, error) in
+            FastXML(xmldata: deepXML.data(using: .utf8)!) { (dict, error) in
                 expectation.fulfill()
             }
             
@@ -54,7 +54,7 @@ class FastXMLPerformanceTest: XCTestCase {
             largeXML += "</root>"
             
             let expectation = XCTestExpectation(description: "XML should be parsed")
-            FastXML(xmldata: largeXML.data(using: .utf8)!).parse { (dict, error) in
+            FastXML(xmldata: largeXML.data(using: .utf8)!) { (dict, error) in
                 expectation.fulfill()
             }
             
@@ -71,7 +71,7 @@ class FastXMLPerformanceTest: XCTestCase {
             largeXML += "</root>"
             
             let expectation = XCTestExpectation(description: "XML should be parsed")
-            FastXML(xmldata: largeXML.data(using: .utf8)!).parse { (dict, error) in
+            FastXML(xmldata: largeXML.data(using: .utf8)!) { (dict, error) in
                 expectation.fulfill()
             }
             
