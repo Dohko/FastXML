@@ -72,8 +72,9 @@ class FastXML: NSObject {
 extension FastXML: XMLParserDelegate {
     
     func parserDidEndDocument(_ parser: XMLParser) {
-        let children = root.first?.children ?? []
-        handler?(Tag(children.toDictionary()), nil)
+        guard let rootNode = root.first?.children?.last else { handler?(Tag([], namespaces: []), nil); return }
+        let children = [(key: rootNode.key, value: rootNode.value, attributes: rootNode.attributes)]
+        handler?(Tag([children.toDictionary()], namespaces: []), nil)
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
@@ -123,8 +124,17 @@ fileprivate extension Sequence where Iterator.Element == FastXML.Element {
                     // creates an array, appends the previous element
                     // and the current element into it
                     // Finally, compact it
-                    var elements: [Any] = []
-                    elements.append(element)
+                    var elements: [Any]
+                    // if the last element is already an array
+                    if let elms = element as? [Any] {
+                        // uses it
+                        elements = elms
+                    }
+                    else {
+                        // else creates it
+                        elements = []
+                        elements.append(element)
+                    }
                     elements.append(newElement())
                     dict[key] = elements.compactMap { $0 }
                 }
