@@ -74,7 +74,7 @@ extension FastXML: XMLParserDelegate {
     func parserDidEndDocument(_ parser: XMLParser) {
         guard let rootNode = root.first?.children?.last else { handler?(Tag([], namespaces: []), nil); return }
         let children = [(key: rootNode.key, value: rootNode.value, attributes: rootNode.attributes)]
-        handler?(Tag([children.toDictionary()], namespaces: []), nil)
+        handler?(Tag([children.toDictionary()]), nil)
     }
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
