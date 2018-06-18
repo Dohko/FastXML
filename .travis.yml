@@ -9,8 +9,13 @@ env:
   global:
   - FRAMEWORK_NAME=FastXML
 before_install:
-  - brew update
-  - brew outdated carthage || brew upgrade carthage
+- |
+  # work-around for issue https://github.com/travis-ci/travis-ci/issues/6307
+  # might not be necessary in the future
+  command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
+  rvm get stable
+  # - brew update
+  # - brew outdated carthage || brew upgrade carthage
 before_deploy:
   - carthage build --no-skip-current
   - carthage archive $FRAMEWORK_NAME
