@@ -9,12 +9,11 @@ env:
   global:
   - FRAMEWORK_NAME=FastXML
 before_install:
-  if [ "$TRAVIS_OS_NAME" == "osx" ]; then
-    command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-    rvm get stable
-  fi
-#  - brew update
-#  - brew outdated carthage || brew upgrade carthage
+  - brew update
+  - brew outdated carthage || brew upgrade carthage
+  - rvm get head || true
+script:
+  - set -e
 before_deploy:
   - carthage build --no-skip-current
   - carthage archive $FRAMEWORK_NAME
