@@ -9,11 +9,7 @@ env:
   global:
   - FRAMEWORK_NAME=FastXML
 before_install:
-- |
-  # work-around for issue https://github.com/travis-ci/travis-ci/issues/6307
-  # might not be necessary in the future
-  command curl -sSL https://rvm.io/mpapis.asc | gpg --import -
-  rvm get stable
+  - rvm get head || true
   # - brew update
   # - brew outdated carthage || brew upgrade carthage
 before_deploy:
