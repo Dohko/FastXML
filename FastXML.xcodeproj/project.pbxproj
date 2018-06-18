@@ -14,7 +14,7 @@
 		A46A1B1B209206EA000F54DB /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A46A1B1A209206EA000F54DB /* README.md */; };
 		A46A1B1D20920C2B000F54DB /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = A46A1B1C20920C2B000F54DB /* LICENSE */; };
 		A46A1E2E20A094D900135D35 /* Tag.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1E2D20A094D900135D35 /* Tag.swift */; };
-		A46A1E3120A1B63F00135D35 /* FastXMLPerformanceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46A1E3020A1B63F00135D35 /* FastXMLPerformanceTest.swift */; };
+		A4AAD2C220B2B31E00938821 /* Namespace.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4AAD2C120B2B31E00938821 /* Namespace.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +39,7 @@
 		A46A1B1C20920C2B000F54DB /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		A46A1E2D20A094D900135D35 /* Tag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tag.swift; sourceTree = "<group>"; };
 		A46A1E3020A1B63F00135D35 /* FastXMLPerformanceTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FastXMLPerformanceTest.swift; sourceTree = "<group>"; };
+		A4AAD2C120B2B31E00938821 /* Namespace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Namespace.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +97,7 @@
 			children = (
 				A46A1B15209070F2000F54DB /* FastXML.swift */,
 				A46A1E2D20A094D900135D35 /* Tag.swift */,
+				A4AAD2C120B2B31E00938821 /* Namespace.swift */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -221,6 +223,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A46A1E2E20A094D900135D35 /* Tag.swift in Sources */,
+				A4AAD2C220B2B31E00938821 /* Namespace.swift in Sources */,
 				A46A1B16209070F2000F54DB /* FastXML.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,7 +232,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A46A1E3120A1B63F00135D35 /* FastXMLPerformanceTest.swift in Sources */,
 				A46A1B082090709D000F54DB /* FastXMLTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

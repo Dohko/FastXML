@@ -26,130 +26,158 @@ extension FastXML {
     
     public struct Tag {
         
-        private let elements: [[String : Any]]?
-        private let texts: [String]?
+        private var elements: [Any] = []
+        private var texts: [String]?
         
         /// Tag or attribute value
         var value: String? {
-            guard let elements = elements,
-                let elm = elements.first,
-                let value = elm["@text"] as? String,
-                elements.count == 1 else { return texts?.first ?? nil }
-            return value
+            guard let elements = elements.first as? [String : Any] else { return self.elements.first as? String }
+            return elements["@text"] as? String
         }
         
         /// List of tags
         var tags: [String] {
-            guard let elements = elements?
-                .map({ return $0.keys })
-                .flatMap({ $0 }) else { return [] }
-            return Array(Set(elements))
+            return keys.filter{ $0.hasPrefix("$") == false }
         }
         
         /// List of attributes
         var attributes: [String] {
-            guard let elements = elements, elements.count == 1 else { return [] }
-            return elements.first!.keys.filter { $0.hasPrefix("$") }
+            return keys.filter{ $0.hasPrefix("$") }
+        }
+        
+        /// List of attributes and tags
+        var keys: [String] {
+            guard let elements = elements as? [[String : Any]], elements.count >= 1 else { return [] }
+            return Array(Set(elements.map { $0.keys }.flatMap { $0 }.compactMap { $0 }))
         }
         
         /// First tag of the list
         var first: Tag? {
-            if let element = elements?.first {
-                return Tag(element)
-            }
-            else if let text = texts?.first {
-                return Tag([text])
-            }
-            else {
-                return nil
-            }
+            guard let element = elements.first else { return nil }
+            return Tag([element], namespaces: namespaces)
         }
         
         /// last tag of the list
         var last: Tag? {
-            if let element = elements?.last {
-                return Tag(element)
-            }
-            else if let text = texts?.last {
-                return Tag([text])
-            }
-            else {
-                return nil
-            }
+            guard let element = elements.last else { return nil }
+            return Tag([element], namespaces: namespaces)
         }
         
         /// number of tags in the list
         var count: Int {
-            if let element = elements {
-                return element.count
-            }
-            else if let texts = texts {
-                return texts.count
-            }
-            else {
-                return 1
+            return elements.count
+        }
+        
+        private(set) var URI: String?
+        
+        /// namespace for the current tag
+        var namespace: [String : FastXML.Namespace] {
+            let namespaces = attributes.namespaces
+            return namespaces.reduce(into: [String : FastXML.Namespace]()) {
+                if let elements = elements.first as? [String : Any] {
+                    $0[$1.namespace] = Namespace(prefix: $1.namespace, URI: elements[$1] as! String)
+                }
             }
         }
         
-        /// Creates a `Tag` instance using a single element.
-        ///
-        /// - parameter element: The dictionary to be used
-        ///
-        /// - returns: The new `Tag` instance.
-        internal init(_ element: [String : Any]) {
-            self.init([element])
+        private var previousNamespaces: [String] = []
+        var namespaces: [String] {
+            return previousNamespaces + attributes.namespaces.compactMap{ $0.namespace }
         }
+        
         
         /// Creates a `Tag` instance using an array of elements.
         ///
         /// - parameter elements: The array of element to be used
+        /// - parameter namespaces: Previous namespaces
         ///
         /// - returns: The new `Tag` instance.
-        internal init(_ elements: [[String : Any]]) {
+        internal init(_ elements: [Any], namespaces: [String]) {
             self.elements = elements
-            self.texts = nil
+            self.previousNamespaces = namespaces
         }
+
         
-        /// Creates a `Tag` instance using an array of texts.
-        ///
-        /// - parameter texts: The array of texts to be used
-        ///
-        /// - returns: The new `Tag` instance.
-        internal init(_ texts: [String]) {
-            self.elements = nil
-            self.texts = texts
-        }
         
         subscript(key: String) -> Tag {
             get {
-                guard let elements = elements, let element = elements.first else { return Tag([:]) }
-                switch element[key] {
-                case let elements as [[String : Any]]:
-                    return Tag(elements)
-                case let element as [String : Any]:
-                    return Tag(element)
-                case let texts as [String]:
-                    return Tag(texts)
-                case let text as String:
-                    return Tag([text])
-                default:
-                    return Tag([:])
+                if let tag = tag(for: key) {
+                    return tag
                 }
+                else {
+                    var namespaces = elements.compactMap { $0 as? [String : Any] }.map { Array($0.keys) }.flatMap { $0 }
+                    namespaces = namespaces.filter { $0.index(of: ":") != nil && self.namespaces.contains($0.components(separatedBy: ":").first!) }
+                    namespaces = Array(Set(namespaces))
+                    guard namespaces.isEmpty == false else { return Tag([], namespaces: []) }
+                    
+                    let elms = elements
+                        .compactMap { $0 as? [String : Any] }
+                        .compactMap { $0.filter { namespaces.contains($0.key) }}
+                        .filter { $0.isEmpty == false }.flatMap { $0 }
+                        .reduce(into: [Any]()) {
+                            if let values = $1.value as? [Any] {
+                                $0.append(contentsOf: values)
+                            }
+                            else {
+                                $0.append($1.value)
+                            }
+                        }
+                    
+                    elements
+                        .compactMap { $0 as? [String : Any] }
+                        .compactMap { $0.filter { namespaces.contains($0.key) }}
+                        .filter { $0.isEmpty == false }
+                        .flatMap { $0 }
+                        .reduce(into: [Any]()) {
+                            let aaa = $1
+                            if let values = $1.value as? [Any] {
+                                $0.append(contentsOf: values)
+                                print($0)
+                            }
+                            else {
+                                $0.append($1.value)
+                            }
+                    }
+                    return Tag(elms, namespaces: self.namespaces)
+                }
+            }
+        }
+        
+        private func tag(for key: String) -> Tag? {
+            guard let element = elements.first as? [String : Any], elements.isEmpty == false else { return nil }
+            switch element[key] {
+            case let elements as [Any]:
+                return Tag(elements, namespaces: namespaces)
+            case let text as String:
+                return Tag([["@text": text]], namespaces: namespaces)
+            case let element as [String : Any]:
+                return Tag([element], namespaces: namespaces)
+            default:
+                return nil
             }
         }
         
         subscript(index: Int) -> Tag {
             get {
-                if let elements = elements, index < elements.count {
-                    return Tag(elements[index])
-                }
-                else if let texts = texts, index < texts.count {
-                    return Tag([texts[index]])
-                }
-                else {
-                    return Tag([:])
-                }
+                guard index < elements.count else { return Tag([], namespaces: namespaces) }
+                return Tag([elements[index]], namespaces: namespaces)
             }
         }
+        
+    }
+}
+
+
+fileprivate extension Array where Element: StringProtocol {
+    var namespaces: [String] {
+        return filter { $0.lowercased().hasPrefix("$xmlns") } as! [String]
+    }
+}
+
+fileprivate extension String {
+    var namespace: String {
+        // removes the "$" prefix
+        // and returns the suffix
+        return String(lowercased().dropFirst().split(separator: ":").last!)
     }
 }

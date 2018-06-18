@@ -219,5 +219,55 @@ class FastXMLTests: XCTestCase {
         XCTAssertEqual(dataParsed!["俄语"].value, "данные")
         XCTAssertEqual(dataParsed!["俄语"]["$լեզու"].value, "ռուսերեն")
     }
+    
+    func testNamespaceOnRoot() {
+        // Given
+        let xml = """
+            <root xmlns:h="http://www.w3.org/TR/html4/" xmlns:f="https://www.w3schools.com/furniture">
+                <h:table>
+                  <h:tr>
+                    <h:td>Apples</h:td>
+                    <h:td>Bananas</h:td>
+                  </h:tr>
+                </h:table>
+
+                <h:table>
+                  <h:tr>
+                    <h:td>Apricot</h:td>
+                    <h:td>Blueberry</h:td>
+                    <f:td>foo</f:td>
+                    <f:name>Fruits</f:name>
+                  </h:tr>
+                </h:table>
+
+                <f:table>
+                  <f:name>African Coffee Table</f:name>
+                  <f:width>80</f:width>
+                  <f:length>120</f:length>
+                </f:table>
+        </root>
+        """
+
+        // When
+        parse(xml: xml)
+        
+        // Then
+        XCTAssertNotNil(dataParsed)
+        XCTAssertEqual(dataParsed?["root"].namespace["h"]?.URI, "http://www.w3.org/TR/html4/")
+        dataParsed?["root"]["table"][0]["tr"]
+        XCTAssertEqual(dataParsed?["root"]["table"][0]["tr"]["td"].first?.value, "Apples")
+        XCTAssertEqual(dataParsed?["root"]["table"][0]["tr"]["td"].last?.value, "Bananas")
+        XCTAssertEqual(dataParsed?["root"]["table"][1]["tr"]["td"][0].value, "Apricot")
+//        XCTAssertEqual(dataParsed?["root"]["table"][1]["tr"]["td"][1].value, "Blueberry")
+//        XCTAssertEqual(dataParsed?["root"]["table"][1]["tr"]["td"][2].value, dataParsed?["root"]["table"][1]["tr"]["f:td"].value)
+//        XCTAssertEqual(dataParsed?["root"]["table"][1]["tr"]["f:td"].value, "foo")
+//        XCTAssertEqual(dataParsed?["root"]["table"][1]["tr"]["name"].value, "Blueberry")
+//
+//        XCTAssertEqual(dataParsed?["root"].namespace["f"]?.URI, "https://www.w3schools.com/furniture")
+//        XCTAssertEqual(dataParsed?["root"]["table"]["name"].value, "African Coffee Table")
+//        XCTAssertEqual(dataParsed?["root"]["table"]["width"].value, "80")
+//        XCTAssertEqual(dataParsed?["root"]["table"]["length"].value, "120")
+    }
+ 
 
 }

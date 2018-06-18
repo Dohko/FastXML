@@ -2,4 +2,133 @@
 <Bucket
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tests/FastXMLTests.swift"
+            timestampString = "549269649.620788"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
+            landmarkName = "testNamespaceOnRoot()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "FastXMLTests.FastXMLTests.testNamespaceOnRoot() -&gt; ()"
+                  moduleName = "FastXMLTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mfitussi/Documents/Dev/FastXML/FastXML/Tests/FastXMLTests.swift"
+                  timestampString = "549269650.49365"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "258"
+                  endingLineNumber = "258"
+                  offsetFromSymbolStart = "1752">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #4 : @autoclosure () throws -&gt; Swift.Optional&lt;Swift.String&gt; in FastXMLTests.FastXMLTests.testNamespaceOnRoot() -&gt; ()"
+                  moduleName = "FastXMLTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mfitussi/Documents/Dev/FastXML/FastXML/Tests/FastXMLTests.swift"
+                  timestampString = "549269650.496376"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "258"
+                  endingLineNumber = "258"
+                  offsetFromSymbolStart = "27">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #5 : @autoclosure () throws -&gt; Swift.Optional&lt;Swift.String&gt; in FastXMLTests.FastXMLTests.testNamespaceOnRoot() -&gt; ()"
+                  moduleName = "FastXMLTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mfitussi/Documents/Dev/FastXML/FastXML/Tests/FastXMLTests.swift"
+                  timestampString = "549269650.4983751"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "258"
+                  endingLineNumber = "258"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Source/FastXML.swift"
+            timestampString = "549269649.621251"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "131"
+            endingLineNumber = "131"
+            landmarkName = "addElement(_:forKey:into:)"
+            landmarkType = "9">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Source/FastXML.swift"
+            timestampString = "549269649.621578"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "addElement(_:forKey:into:)"
+            landmarkType = "9">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "addElement #1 &lt;A where A: Swift.Sequence, A.Element == (key: Swift.String, value: Swift.Optional&lt;Any&gt;, attributes: Swift.Dictionary&lt;Swift.String, Swift.String&gt;)&gt;(() -&gt; Any, forKey: Swift.String, into: inout Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; () in closure #1 (inout Swift.Dictionary&lt;Swift.String, Any&gt;, (key: Swift.String, value: Swift.Optional&lt;Any&gt;, attributes: Swift.Dictionary&lt;Swift.String, Swift.String&gt;)) -&gt; () in (extension in FastXML):Swift.Sequence&lt; where A.Element == (key: Swift.String, value: Swift.Optional&lt;Any&gt;, attributes: Swift.Dictionary&lt;Swift.String, Swift.String&gt;)&gt;.(toDictionary in _3CF4ECFCD806F662EC3874403970B4DD)() -&gt; Swift.Dictionary&lt;Swift.String, Any&gt;"
+                  moduleName = "FastXML"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mfitussi/Documents/Dev/FastXML/FastXML/Source/FastXML.swift"
+                  timestampString = "549269399.983285"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "766">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Any) -&gt; Swift.Optional&lt;Any&gt; in addElement #1 &lt;A where A: Swift.Sequence, A.Element == (key: Swift.String, value: Swift.Optional&lt;Any&gt;, attributes: Swift.Dictionary&lt;Swift.String, Swift.String&gt;)&gt;(() -&gt; Any, forKey: Swift.String, into: inout Swift.Dictionary&lt;Swift.String, Any&gt;) -&gt; () in closure #1 (inout Swift.Dictionary&lt;Swift.String, Any&gt;, (key: Swift.String, value: Swift.Optional&lt;Any&gt;, attributes: Swift.Dictionary&lt;Swift.String, Swift.String&gt;)) -&gt; () in (extension in FastXML):Swift.Sequence&lt; where A.Element == (key: Swift.String, value: Swift.Optional&lt;Any&gt;, attributes: Swift.Dictionary&lt;Swift.String, Swift.String&gt;)&gt;.(toDictionary in _3CF4ECFCD806F662EC3874403970B4DD)() -&gt; Swift.Dictionary&lt;Swift.String, Any&gt;"
+                  moduleName = "FastXML"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mfitussi/Documents/Dev/FastXML/FastXML/Source/FastXML.swift"
+                  timestampString = "549269399.985744"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "139"
+                  endingLineNumber = "139"
+                  offsetFromSymbolStart = "12">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>
